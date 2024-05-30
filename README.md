@@ -18,7 +18,7 @@ ESC      \n
 RAND     20      00,FF
 ```
 
-This will generate a file with the following content:
+This will generate a file with the following content (in hexdump):
 
 ```
 00000000  48 65 6c 6c 6f 20 77 6f  72 6c 64 0a 5e 33 85 13  |Hello world.^3..|
