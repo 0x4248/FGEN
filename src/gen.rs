@@ -5,10 +5,10 @@
  * By: 0x4248
 */
 
+use rand::rngs::ThreadRng;
 use rand::Rng;
 use std::fs::File;
 use std::io::{self, Write};
-use rand::rngs::ThreadRng;
 
 pub fn generate_file(file: &mut File, instructions: &str, rng: &mut ThreadRng) -> io::Result<()> {
     for line in instructions.lines() {
@@ -33,13 +33,11 @@ pub fn generate_file(file: &mut File, instructions: &str, rng: &mut ThreadRng) -
                     write!(file, "{}", file_contents)?;
                 }
             }
-            "ESC" => {
-                match parts[1] {
-                    "\\n" => writeln!(file)?,
-                    "\\t" => write!(file, "\t")?,
-                    _ => {}
-                }
-            }
+            "ESC" => match parts[1] {
+                "\\n" => writeln!(file)?,
+                "\\t" => write!(file, "\t")?,
+                _ => {}
+            },
             "HEX" => {
                 let byte = u8::from_str_radix(parts[1].trim_start_matches("0x"), 16).unwrap();
                 let count: usize = parts[2].parse().unwrap();
